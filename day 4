@@ -1,0 +1,68 @@
+#include <stdio.h>
+
+int main() {
+    // Declare variables
+    float q1, q2, q3, q4, q5;   // Marks of 5 subjects
+    float attendance;           // Attendance percentage
+    float total, percentage;    // Total marks and calculated percentage
+    char grade;                 // Final grade
+
+    // Input marks and attendance
+    printf("Enter marks in 5 subjects: ");
+    scanf("%f %f %f %f %f", &q1, &q2, &q3, &q4, &q5);
+
+    printf("Enter attendance percentage: ");
+    scanf("%f", &attendance);
+
+    // Validate marks
+    if ((q1 < 0 || q1 > 100) || (q2 < 0 || q2 > 100) ||
+        (q3 < 0 || q3 > 100) || (q4 < 0 || q4 > 100) ||
+        (q5 < 0 || q5 > 100)) {
+        printf("Error: Marks must be between 0 and 100.\n");
+        return 1;
+    }
+
+    // Calculate total percentage
+    total = q1 + q2 + q3 + q4 + q5;
+    percentage = total / 5;
+
+    // Apply grading logic
+    printf("\nTotal Percentage: %.2f%%\n", percentage);
+    printf("Attendance: %.2f%%\n", attendance);
+
+    // Check attendance condition first
+    if (attendance < 75) {
+        grade = 'F';
+        printf("Final Grade: %c\nRemarks: Fail (Low Attendance)\n");
+    } else {
+        // Check grace marks condition
+        if (percentage >= 45 && percentage < 50 && attendance >= 90) {
+            percentage += 5; // Add grace marks
+            if (percentage > 100)
+                percentage = 100; // Cap percentage at 100
+        }
+
+        // Nested if-else for grade classification
+        if (percentage >= 90) {
+            grade = 'A';
+            printf("Final Grade: A+\nRemarks: Excellent\n");
+        } else if (percentage >= 80) {
+            grade = 'A';
+            printf("Final Grade: A\nRemarks: Very Good\n");
+        } else if (percentage >= 70) {
+            grade = 'B';
+            printf("Final Grade: B\nRemarks: Good\n");
+        } else if (percentage >= 60) {
+            grade = 'C';
+            printf("Final Grade: C\nRemarks: Average\n");
+        } else if (percentage >= 50) {
+            grade = 'D';
+            printf("Final Grade: D\nRemarks: Pass\n");
+        } else {
+            grade = 'F';
+            printf("Final Grade: F\nRemarks: Fail\n");
+        }
+    }
+
+    return 0;
+}
