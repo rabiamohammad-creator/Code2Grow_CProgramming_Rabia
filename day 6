@@ -1,0 +1,71 @@
+#include <stdio.h>
+
+int main() {
+    float dataUsed, baseCost = 0, extraCostPerGB = 0, totalBill = 0, discount = 0, finalBill = 0;
+    int studentStatus, corporateStatus;
+    char planName[20];
+    float extraData = 0;
+
+    // Input Section
+    printf("Enter total data used (GB): ");
+    scanf("%f", &dataUsed);
+
+    // Check for excessive usage
+    if (dataUsed > 100) {
+        printf("Excessive Usage – Plan Not Allowed\n");
+    } 
+    else {
+        printf("Are you a student? (1-Yes / 0-No): ");
+        scanf("%d", &studentStatus);
+        printf("Corporate user? (1-Yes / 0-No): ");
+        scanf("%d", &corporateStatus);
+
+        // Determine Plan Based on Usage
+        if (dataUsed < 30) {
+            baseCost = 299;
+            extraCostPerGB = 50;
+            sprintf(planName, "Silver");
+            extraData = (dataUsed > 1 * 30) ? (dataUsed - 30) : 0; // Practically always 0 for valid range
+        } 
+        else if (dataUsed >= 30 && dataUsed <= 60) {
+            baseCost = 499;
+            extraCostPerGB = 40;
+            sprintf(planName, "Gold");
+            extraData = (dataUsed > 60) ? (dataUsed - 60) : 0;
+        } 
+        else if (dataUsed > 60 && dataUsed <= 100) {
+            baseCost = 799;
+            extraCostPerGB = 30;
+            sprintf(planName, "Platinum");
+            extraData = (dataUsed > 60) ? (dataUsed - 60) : 0;
+        }
+
+        // Compute total bill before discount
+        totalBill = baseCost + (extraData * extraCostPerGB);
+
+        // Determine applicable discount
+        if (studentStatus == 1 && corporateStatus == 0)
+            discount = 15;
+        else if (corporateStatus == 1 && studentStatus == 0)
+            discount = 10;
+        else if (studentStatus == 1 && corporateStatus == 1)
+            discount = (15 > 10) ? 15 : 10;
+        else
+            discount = 0;
+
+        // Apply discount
+        finalBill = totalBill - (totalBill * discount / 100);
+
+        // Output Section
+        printf("\nUser Plan Summary:\n");
+        printf("Data Used: %.2f GB\n", dataUsed);
+        printf("Selected Plan: %s\n", planName);
+        printf("Base Cost: ₹%.2f\n", baseCost);
+        printf("Extra Data: %.2f GB\n", extraData);
+        printf("Total (before discount): ₹%.2f\n", totalBill);
+        printf("Discount Applied: %.0f%%\n", discount);
+        printf("Final Bill: ₹%.2f\n", finalBill);
+    }
+
+    return 0;
+}
