@@ -1,0 +1,52 @@
+#include <stdio.h>
+
+int main() {
+    int choice;
+    long balance = 10000;
+    long amount;
+    long bonus;
+    int exitFlag = 0;
+
+    printf("Welcome to Smart Bank Account Manager\n");
+
+    while(!exitFlag) {
+        printf("\nMenu:\n");
+        printf("1. Deposit Money\n");
+        printf("2. Withdraw Money\n");
+        printf("3. Check Balance\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            printf("Enter amount to deposit: ");
+            scanf("%ld", &amount);
+            bonus = 0;
+            if (amount > 25000) {
+                bonus = (amount * 1) / 100;
+                printf("Bonus of ₹%ld added!\n", bonus);
+            }
+            balance = balance + amount + bonus - 5;
+            printf("Service charge ₹5 applied.\n");
+            printf("Updated Balance: ₹%ld\n", balance);
+        } else if (choice == 2) {
+            printf("Enter amount to withdraw: ");
+            scanf("%ld", &amount);
+            if (amount > balance) {
+                printf("Withdrawal not allowed! Insufficient balance.\n");
+            } else {
+                balance = balance - amount - 5;
+                printf("Service charge ₹5 applied.\n");
+                printf("Updated Balance: ₹%ld\n", balance);
+            }
+        } else if (choice == 3) {
+            printf("Current Balance: ₹%ld\n", balance);
+        } else if (choice == 4) {
+            printf("Thank you for banking with us!\n");
+            exitFlag = 1;
+        } else {
+            printf("Invalid choice! Please try again.\n");
+        }
+    }
+    return 0;
+}
