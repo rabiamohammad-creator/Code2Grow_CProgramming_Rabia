@@ -1,0 +1,50 @@
+#include <stdio.h>
+
+int main() {
+    int num_customers, total_revenue = 0, i, j;
+    printf("Enter total number of customers: ");
+    scanf("%d", &num_customers);
+
+    for (i = 1; i <= num_customers; i++) {
+        int num_items, k, item_code, quantity;
+        int total = 0, price = 0;
+        printf("\n--- Customer %d ---\n", i);
+        printf("Enter number of items: ");
+        scanf("%d", &num_items);
+
+        // Display static menu each time
+        printf("Menu:\n");
+        printf("1. Sandwich - ₹80\n2. Burger - ₹120\n3. Pizza Slice - ₹150\n4. Coffee - ₹60\n5. Juice - ₹50\n");
+
+        for (j = 1; j <= num_items; j++) {
+            printf("Enter item code: ");
+            scanf("%d", &item_code);
+            printf("Enter quantity: ");
+            scanf("%d", &quantity);
+
+            // Use switch to get price per item
+            switch (item_code) {
+                case 1: price = 80; break;
+                case 2: price = 120; break;
+                case 3: price = 150; break;
+                case 4: price = 60; break;
+                case 5: price = 50; break;
+                default: price = 0;
+            }
+            total += price * quantity;
+        }
+
+        printf("Total: ₹%d\n", total);
+        if (total > 500) {
+            int discount = total * 10 / 100;
+            printf("Discount (10%%): ₹%d\n", discount);
+            total = total - discount;
+        }
+        printf("Final Bill: ₹%d\n", total);
+        total_revenue += total;
+    }
+    printf("\n============= Canteen Summary =============\n");
+    printf("Total Customers Served: %d\n", num_customers);
+    printf("Total Revenue: ₹%d\n", total_revenue);
+    return 0;
+}
