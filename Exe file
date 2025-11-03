@@ -1,0 +1,39 @@
+Enter total number of customers: 2
+
+--- Customer 1 ---
+Enter number of items: 2
+Menu:
+1. Sandwich - ₹80
+2. Burger - ₹120
+3. Pizza Slice - ₹150
+4. Coffee - ₹60
+5. Juice - ₹50
+Enter item code: 1
+Enter quantity: 3
+Enter item code: 3
+Enter quantity: 1 2
+Total: ₹540
+Discount (10%): ₹54
+Final Bill: ₹486
+
+--- Customer 2 ---
+Enter number of items: 3
+Menu:
+1. Sandwich - ₹80
+2. Burger - ₹120
+3. Pizza Slice - ₹150
+4. Coffee - ₹60
+5. Juice - ₹50
+Enter item code: 2
+Enter quantity: 2
+Enter item code: 4
+Enter quantity: 3
+Enter item code: 5
+Enter quantity: 1
+Total: ₹470
+Final Bill: ₹470
+
+============= Canteen Summary =============
+Total Customers Served: 2
+Total Revenue: ₹956
+
