@@ -1,0 +1,132 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_PRODUCTS 20
+
+typedef struct {
+    int id;
+    int price;
+    int quantity;
+} Product;
+
+Product warehouse[MAX_PRODUCTS];
+int count = 0;
+
+// Function to add product
+void addProduct() {
+    if (count < MAX_PRODUCTS) {
+        printf("Enter Product ID: ");
+        scanf("%d", &warehouse[count].id);
+        printf("Enter Price: ");
+        scanf("%d", &warehouse[count].price);
+        printf("Enter Quantity: ");
+        scanf("%d", &warehouse[count].quantity);
+        count++;
+        printf("Product Added Successfully!\n");
+    } else {
+        printf("Warehouse Full!\n");
+    }
+}
+
+// Function to search product by ID
+void searchProduct() {
+    int id, found = 0;
+    printf("Enter Product ID to Search: ");
+    scanf("%d", &id);
+    for (int i = 0; i < count; i++) {
+        if (warehouse[i].id == id) {
+            printf("Product Found! - ID: %d, Price: %d, Quantity: %d\n",
+                   warehouse[i].id, warehouse[i].price, warehouse[i].quantity);
+            found = 1;
+            break;
+        }
+    }
+    if (!found)
+        printf("Product Not Found.\n");
+}
+
+// Function to update quantity
+void updateQuantity() {
+    int id, qty;
+    printf("Enter Product ID to Update: ");
+    scanf("%d", &id);
+    for (int i = 0; i < count; i++) {
+        if (warehouse[i].id == id) {
+            printf("Enter new Quantity: ");
+            scanf("%d", &qty);
+            warehouse[i].quantity = qty;
+            printf("Quantity Updated!\n");
+            return;
+        }
+    }
+    printf("Product Not Found.\n");
+}
+
+// Function to generate rack report (quantity analysis)
+void generateRackReport() {
+    if (count == 0) {
+        printf("No products in warehouse.\n");
+        return;
+    }
+    int max = warehouse[0].quantity, min = warehouse[0].quantity;
+    int max_id = warehouse[0].id, min_id = warehouse[0].id;
+    for (int i = 1; i < count; i++) {
+        if (warehouse[i].quantity > max) {
+            max = warehouse[i].quantity;
+            max_id = warehouse[i].id;
+        }
+        if (warehouse[i].quantity < min) {
+            min = warehouse[i].quantity;
+            min_id = warehouse[i].id;
+        }
+    }
+    printf("Rack Report:\n");
+    printf("Max quantity: ID=%d, Quantity=%d\n", max_id, max);
+    printf("Min quantity: ID=%d, Quantity=%d\n", min_id, min);
+}
+
+// Function to calculate stock value for each product
+void calculateStockValue() {
+    printf("Product Stock Values:\n");
+    for (int i = 0; i < count; i++) {
+        int value = warehouse[i].price * warehouse[i].quantity;
+        printf("ID: %d, Total Stock Value: %d\n", warehouse[i].id, value);
+    }
+}
+
+// Function to display all products
+void displayAllProducts() {
+    printf("ID\tPrice\tQuantity\n");
+    for (int i = 0; i < count; i++) {
+        printf("%d\t%d\t%d\n", warehouse[i].id, warehouse[i].price, warehouse[i].quantity);
+    }
+}
+
+int main() {
+    int choice;
+    do {
+        printf("\nSmart Warehouse Analytics System\n");
+        printf("1. Add Product\n");
+        printf("2. Search Product (By ID)\n");
+        printf("3. Update Quantity\n");
+        printf("4. Generate Rack Report\n");
+        printf("5. Calculate Stock Value\n");
+        printf("6. Display All Products\n");
+        printf("7. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch(choice) {
+            case 1: addProduct(); break;
+            case 2: searchProduct(); break;
+            case 3: updateQuantity(); break;
+            case 4: generateRackReport(); break;
+            case 5: calculateStockValue(); break;
+            case 6: displayAllProducts(); break;
+            case 7: printf("Exiting...\n"); break;
+            default: printf("Invalid choice!\n");
+        }
+    } while(choice != 7);
+
+    return 0;
+}
